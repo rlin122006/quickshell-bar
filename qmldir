@@ -1,0 +1,8 @@
+singleton Theme 1.0 Theme.qml
+Clock 1.0 Clock.qml
+Mpris 1.0 Mpris.qml
+Workspaces 1.0 Workspaces.qml
+Sound 1.0 Sound.qml
+SystemTray 1.0 SystemTray.qml
+Battery 1.0 Battery.qml
+Connection 1.0 Connection.qml
