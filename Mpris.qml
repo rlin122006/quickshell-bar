@@ -3,7 +3,7 @@ import Quickshell.Io
 import QtQuick
 
 Rectangle {
-    property bool rmpcRunning: false
+    property bool amberolRunning: false
     property bool spotifyRunning: false
 
     implicitHeight: 26
@@ -18,7 +18,7 @@ Rectangle {
         font.family: Theme.mapleMono
         text: {
             if (!player) return ""
-            if (!rmpcRunning && !spotifyRunning) return ""
+            if (!amberolRunning && !spotifyRunning) return ""
             const icon = player.playbackState === MprisPlaybackState.Playing ? "⏸" : "▶"
             return `${icon} ${player.trackTitle || "Unknown"} ~ ${player.trackArtist || "Unknown"} (${formatSecs(player.position)}/${formatSecs(player.length)})`
         }
@@ -44,16 +44,16 @@ Rectangle {
         repeat: true
         triggeredOnStart: true
         onTriggered: {
-            rmpcCheck.running = true
+            amberolCheck.running = true
             spotifyCheck.running = true
         }
     }
 
-    // checks if rmpc is running
+    // checks if amberol is running
     Process {
-        id: rmpcCheck
-        command: ["pgrep", "-x", "rmpc"]
-        onExited: (exitCode) => { rmpcRunning = exitCode === 0 }
+        id: amberolCheck
+        command: ["pgrep", "amberol"]
+        onExited: (exitCode) => { amberolRunning = exitCode === 0 }
     }
 
     // check if spotify is running
@@ -77,7 +77,7 @@ Rectangle {
         const blocked = ["firefox"]
         const active = Mpris.players.values.filter(p => {
             if (blocked.includes(p.desktopEntry)) return false
-            if (p.desktopEntry === "mpd-mpris" && !rmpcRunning) return false
+            if (p.desktopEntry === "amberol" && !amberolRunning) return false
             if (p.desktopEntry === "spotify" && !spotifyRunning) return false
             const title = p.trackTitle?.trim()
             const artist = p.trackArtist?.join("").trim()
