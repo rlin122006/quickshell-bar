@@ -8,8 +8,8 @@ ShellRoot {
 
         PanelWindow {
             required property var modelData
-
             screen: modelData
+
             implicitHeight: 46
             implicitWidth: Screen.width
             color: "transparent"
